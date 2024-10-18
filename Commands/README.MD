@@ -41,17 +41,17 @@
     ``
 
 ##  bin/magento list --raw
-
-*completion                                            Dump the shell completion script
-*help                                                  Display help for a command
-*list                                                  List commands
-*admin:adobe-ims:disable                               Disable Adobe IMS Module
-*admin:adobe-ims:enable                                Enable Adobe IMS Module.
-*admin:adobe-ims:info                                  Information of Adobe IMS Module configuration
-*admin:adobe-ims:status                                Status of Adobe IMS Module
-*admin:user:create                                     Creates an administrator
-*admin:user:unlock                                     Unlock Admin Account
-*app:config:dump                                       Create dump of application
+   ```javascript
+completion                                            Dump the shell completion script
+help                                                  Display help for a command
+list                                                  List commands
+admin:adobe-ims:disable                               Disable Adobe IMS Module
+admin:adobe-ims:enable                                Enable Adobe IMS Module.
+admin:adobe-ims:info                                  Information of Adobe IMS Module configuration
+admin:adobe-ims:status                                Status of Adobe IMS Module
+admin:user:create                                     Creates an administrator
+admin:user:unlock                                     Unlock Admin Account
+app:config:dump                                       Create dump of application
 app:config:import                                     Import data from shared configuration files to appropriate data storage
 app:config:status                                     Checks if config propagation requires update
 braintree:migrate                                     Migrate stored cards from a Magento 1 database
@@ -152,3 +152,4 @@ store:list                                            Displays the list of store
 store:website:list                                    Displays the list of websites
 theme:uninstall                                       Uninstalls theme
 varnish:vcl:generate                                  Generates Varnish VCL and echos it to the command line
+``
