@@ -1,8 +1,8 @@
 # Command List
 ##  Php bin/magento --help
 
-    ```Command Description
-    
+    ```phtml
+
         Description:
         List commands
 
@@ -43,7 +43,7 @@
     ``
 
 ##  bin/magento list --raw
-   ```list of command
+   ```phtml
             completion                                            Dump the shell completion script
             help                                                  Display help for a command
             list                                                  List commands
@@ -155,6 +155,4 @@
             theme:uninstall                                       Uninstalls theme
             varnish:vcl:generate                                  Generates Varnish VCL and echos it to the command line
 
-
-
-``
+    ``
