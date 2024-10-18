@@ -1,7 +1,7 @@
 # Command List
 ##  Php bin/magento --help
 
-    ```javascript
+    ```Command Description
         Description:
         List commands
 
@@ -41,7 +41,7 @@
     ``
 
 ##  bin/magento list --raw
-   ```javascript
+   ```list of command
 completion                                            Dump the shell completion script
 help                                                  Display help for a command
 list                                                  List commands
