@@ -22,3 +22,15 @@ The **Icecube_Multifileuploader** extension provides a functionality for uploadi
    php bin/magento setup:di:compile
    php bin/magento setup:static-content:deploy -f
    php bin/magento cache:flush
+
+
+## Admin Configuration
+
+### Store -> Configuration -> MultiFileUploader -> Configuration
+
+![Admin](images/MultiuploaderAdmin.png)
+
+### Catalog -> Product -> Open any product -> Click on MultiFileUploader
+
+![Admin](images/MultiuploaderProdcutFormAdmin.png)
+
