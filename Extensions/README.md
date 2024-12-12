@@ -28,9 +28,10 @@ The **Icecube_Multifileuploader** extension provides a functionality for uploadi
 
 ### Store -> Configuration -> MultiFileUploader -> Configuration
 
-![Admin](images/MultiuploaderAdmin.png)
+![Admin](Images/MultiuploaderAdmin.png)
 
 ### Catalog -> Product -> Open any product -> Click on MultiFileUploader
 
-![Admin](images/MultiuploaderProdcutFormAdmin.png)
+![Admin](Images/MultiuploaderProdcutFormAdmin.png)
+
 
