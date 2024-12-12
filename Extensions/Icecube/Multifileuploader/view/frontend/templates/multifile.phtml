@@ -1,0 +1,44 @@
+<?php
+    $MultiData = $block->getMultifileData();
+ ?>
+<?php if (!$_additional = $block->getAdditionalData()) :?>
+<?php if (!empty($MultiData->getData())) : ?>	
+<div class="additional-attributes-wrapper table-wrapper table-responsive">
+    <table class="data table cart table table-bordered" id="product-attribute-specs-table">
+        <tbody>
+            <tr>
+                <th class="col label ff-futura" scope="row">SDS File</th>
+
+                <td class="col data">
+                    <div class="d-flex flex-wrap align-items-center gap-1">
+                    	<?php
+                         foreach ($MultiData as $key => $item) { ?>
+	 						<div class="btn-wrap">
+	                            <a target="_blank" href="/<?php echo $item->getFileValue(); ?>"><?php echo $item->getFileLabel(); ?> - Click here</a>
+	                        </div>
+                         <?php }
+                    	?>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th class="col label ff-futura" scope="row">TDS File</th>
+                <td class="col data">
+                    <div class="d-flex flex-wrap align-items-center gap-1">
+                       <div class="d-flex flex-wrap align-items-center gap-1">
+                    	<?php
+                         foreach ($MultiData as $key => $item) { ?>
+	 						<div class="btn-wrap">
+	                            <a target="_blank" href="/<?php echo $item->getFileValue(); ?>"><?php echo $item->getFileLabel(); ?> - Click here</a>
+	                        </div>
+                         <?php }
+                    	?>
+                      </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<?php endif;?>
+<?php endif;?>

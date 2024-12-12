@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="multifile" translate="label" sortOrder="110">
+            <label>MultiFileUploader</label>
+        </tab>
+        <section id="multifile_section" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Configuration</label>
+            <tab>multifile</tab>
+            <resource>Icecube_Multifileuploader::config</resource>
+            
+            <!-- General Group -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the MultiFileUploader extension.</comment>
+                </field>
+            </group>
+            
+            <!-- Configuration Group -->
+            <group id="configuration" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
+                <attribute type="expanded">0</attribute>
+                <field id="allowed_file_types" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allowed File Types</label>
+                    <comment>Comma-separated file types (e.g., jpg, png, pdf).</comment>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field</frontend_model>
+                    <backend_model>Icecube\Multifileuploader\Model\Config\Backend\FileTypes</backend_model>
+                </field>
+                <field id="max_file_size" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Max File Size (in MB)</label>
+                    <comment>Specify the maximum file size allowed for uploads.</comment>
+                    <backend_model>Icecube\Multifileuploader\Model\Config\Backend\FileSize</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

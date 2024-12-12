@@ -1,0 +1,130 @@
+body{
+	 .admin__form-loading-mask.multifileuploadspinner {
+        position: absolute;
+    }
+    #multi-file-uploader-container{
+        position: relative;
+    }
+    #multi-file-uploader-container .Fileuploadsection {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    #multi-file-uploader-container .Fileuploadsection .admin__field {
+        display: flex;
+        flex-wrap: wrap;
+        margin:0px;
+    }
+  #multi-file-uploader-container .Fileuploadsection .admin__field .error {
+     color: red;
+     display: block;
+  }
+
+    #multi-file-uploader-container .Fileuploadsection .admin__field .admin__field-label {
+        padding-right: 40px;
+    }
+       #multi-file-uploader-container .Fileuploadsection .admin__field .admin__field-label._required span:after {
+        margin: 0 0 0 0.5rem;
+        color: #e22626;
+        content: '*';
+    }
+   
+   #multi-file-uploader-container #multifilesContainer .file-section {
+        display: table-row;
+    }
+    
+    #multifilesContainer .File-heading {
+        margin: 0;
+        display: table-cell;
+        width: 20%;
+        vertical-align: middle;
+        padding-bottom: 15px;
+    }
+
+
+   #multi-file-uploader-container #multifilesContainer {
+    margin-top: 40px;
+    padding: 30px 67px;
+    display: table;
+    width: 100%;
+}
+
+    #multi-file-uploader-container #multifilesContainer .multipdf-image, #multifilesContainer .delete-image {
+    width: 25px;
+    height: auto;
+    cursor: pointer;
+}
+   
+
+   #multifilesContainer .File-icon, .delete-file {
+    margin: 0;
+    display: table-cell;
+    width: 20%;
+    vertical-align: middle;
+    padding-bottom: 15px;
+}
+
+    #multifileConfirmModal {
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 9999;
+    width: 360px;
+    transform: translatex(-50%);
+    top: 50px;
+    left: 50%;
+    background: #fff;
+    }
+
+    #multifileConfirmModal .modal-content {
+    text-align: center;
+    background: #fff;
+    padding: 30px;
+    position: relative;
+    }
+
+    #multifileConfirmModal .modal-content .close-model {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    font-size: 20px;
+    }
+    #multifileConfirmModal .modal-content #modalMessage {
+    margin-top: 5px;
+    }
+
+   #multifileConfirmModal .modal-content button {
+        margin: 5px;
+    }
+
+    /*  success message  */
+    #multi-file-uploader-container #success-message {
+        margin-bottom: 20px;
+    }
+
+    #multi-file-uploader-container #success-message p {
+        margin: 0px;
+    }
+    #multi-file-uploader-container .error-message-section {
+    color: #000;
+    background: #ffcccc;
+    padding: 10px 15px;
+    border-radius: 0.4em;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    }
+    #multi-file-uploader-container .error-message-section:before {
+        content: "x";
+        margin-right: 0.6em;
+        color: red;
+        font-size: 1.2em;
+    }
+    #multi-file-uploader-container #multifilesContainer .file-group-heading {
+    font-weight: 900;
+    padding:10px 0px;
+    }
+}

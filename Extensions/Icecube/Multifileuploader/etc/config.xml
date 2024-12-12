@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/config.xsd">
+    <default>
+        <multifile_section>
+            <general>
+                <enable>1</enable>
+            </general>
+            <configuration>
+                <allowed_file_types>jpg,png,pdf,jpeg</allowed_file_types>
+                <max_file_size>1</max_file_size>
+            </configuration>
+        </multifile_section>
+    </default>
+</config>

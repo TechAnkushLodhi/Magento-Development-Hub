@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="icecube_multifileuploader" resource="default" engine="innodb" comment="Multifile Uploader Table">
+        <column name="id" xsi:type="int" nullable="false" identity="true" comment="ID" />
+        <column name="product_id" xsi:type="int" nullable="false" comment="Product ID" />
+        <column name="file_name" xsi:type="text" nullable="false" comment="File Name Code" />
+        <column name="file_label" xsi:type="text" nullable="false" comment="File Label" />
+        <column name="file_value" xsi:type="text" nullable="false" comment="File Value" />
+        <column name="created_date" xsi:type="timestamp" default="CURRENT_TIMESTAMP" nullable="false" comment="Created Date" />
+        <column name="updated_date" xsi:type="timestamp" default="CURRENT_TIMESTAMP" nullable="false" comment="Updated Date" />
+          <!-- Primary key define karte hain -->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id" />
+        </constraint>
+    </table>
+</schema>

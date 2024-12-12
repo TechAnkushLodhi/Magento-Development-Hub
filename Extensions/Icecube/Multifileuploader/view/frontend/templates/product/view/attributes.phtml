@@ -1,0 +1,109 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
+<!-- multifile code start  -->
+<?php 
+    $Multifile = $block->getLayout()->createBlock('Icecube\Multifileuploader\Block\Multifile');
+         $fileGroups = [
+        'SDS File' =>$Multifile->getSdsfileData(),
+        'TDS File' => $Multifile->getTdsfileData(),
+          ];
+
+           $hasFiles = array_filter($fileGroups, function ($files) {
+                return !empty($files->getData());
+            });
+?>
+
+<!-- multifile code end  -->
+<?php
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct(); 
+?>
+<?php if ($_additional = $block->getAdditionalData()) :?>
+    <style type="text/css">
+        .additional-attributes-wrapper .btn-wrap:not(:last-child) > a:after {
+            content: "|";
+            color: var(--bs-link-color);
+            cursor: auto;
+        }
+    </style>
+
+
+    <div class="additional-attributes-wrapper table-wrapper table-responsive">
+        <table class="data table cart table table-bordered" id="product-attribute-specs-table">
+            <tbody>
+            <!-- multifile code start  -->
+                 <?php if (!empty($hasFiles)) : ?>
+                        <?php foreach ($fileGroups as $label => $files) : ?>
+                            <?php if (!empty($files->getData())) : ?>
+                                <tr>
+                                    <th class="col label ff-futura" scope="row"><?php echo $label; ?></th>
+                                    <td class="col data">
+                                        <div class="d-flex flex-wrap align-items-center gap-1">
+                                            <?php foreach ($files as $item) : ?>
+                                                <div class="btn-wrap">
+                                                    <a target="_blank" href="/<?php echo $item->getFileValue(); ?>">
+                                                        <?php echo $item->getFileLabel(); ?> - Click here
+                                                    </a>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+            <?php foreach ($_additional as $_data) :?>
+            <!-- multifile code end  -->
+
+                <tr>
+                    <th class="col label ff-futura" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+                    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endif;?>
+<!-- multifile code start  -->
+<?php if (!$_additional = $block->getAdditionalData()) : ?>
+    <?php if (!empty($hasFiles)) : ?>
+        <div class="additional-attributes-wrapper table-wrapper table-responsive">
+            <table class="data table cart table table-bordered" id="product-attribute-specs-table">
+                <tbody>
+                    <?php foreach ($fileGroups as $label => $files) : ?>
+                        <?php if (!empty($files->getData())) : ?>
+                            <tr>
+                                <th class="col label ff-futura" scope="row"><?php echo $label; ?></th>
+                                <td class="col data">
+                                    <div class="d-flex flex-wrap align-items-center gap-1">
+                                        <?php foreach ($files as $item) : ?>
+                                            <div class="btn-wrap">
+                                                <a target="_blank" href="/<?php echo $item->getFileValue(); ?>">
+                                                    <?php echo $item->getFileLabel(); ?> - Click here
+                                                </a>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<!-- multifile code end  -->
+

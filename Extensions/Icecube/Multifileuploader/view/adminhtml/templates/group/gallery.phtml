@@ -1,0 +1,314 @@
+<div id="multi-file-uploader-container">
+    <!-- spinner -->
+    <div data-role="spinner"  class="admin__form-loading-mask multifileuploadspinner" style="display: none;">
+        <div class="spinner">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <!-- model alert -->
+    <div id="multifileConfirmModal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-model">X</span>
+            <p id="modalMessage"></p>
+            <button id="modalYes">Yes</button>
+            <button id="modalNo">No</button>
+        </div>
+   </div>
+    <div id="success-message"></div>
+    <div class="Fileuploadsection">
+        <div class="admin__field">
+            <div class="admin__field-label _required">
+                <span>File Label</span>
+            </div>
+            <div class="admin__field-control">
+                <input type="text" class="admin__control-text" name="file_label" id="file_label" placeholder="Enter file label">
+                 <span class="file-lavel-error error"></span>
+            </div>
+        </div>
+         <div class="admin__field">
+            <div class="admin__field-label _required">
+                <span>Select File</span>
+            </div>
+            <div class="admin__field-control">
+               <select class="admin__control-select" name="select_file" id="select_file">
+                    <option value="" selected>Please Select File</option> <!-- Default value set to empty -->
+                    <option value="SDS_FILE">SDS File</option>
+                    <option value="TDS_FILE">TDS File</option>
+               </select>
+                <span class="file-select-error error" ></span>
+            </div>
+        </div>
+
+        <div class="admin__field">
+            <div class="admin__field-label _required">
+                <span>Upload File</span>
+            </div>
+            <div class="admin__field-control">
+                <input type="file" name="file_upload" id="file_upload">
+                <span class="file-upload-error error" ></span>
+            </div>
+        </div>
+        <button type="button" id="upload-files-button" class="action-basic">
+            <span id="upload">Add Option</span>
+        </button>
+    </div>
+     <!-- Container for dynamic sections -->
+    <div id="multifilesContainer"></div>
+</div>
+<script type="text/javascript">
+    require(['multifile'], function(multifile) {
+    console.log(multifile.message);
+   });
+</script>
+<script type="text/javascript">
+require(['jquery'], function($) {
+    'use strict';
+
+    $(document).ready(function() {
+        var AddButton = $('#upload-files-button');
+        var FileLabel = $('#file_label');
+        var FileUpload = $('#file_upload');
+        var FileSelect = $('#select_file');
+
+        var FileLabelError = $('.file-lavel-error');
+        var FileUploadError = $('.file-upload-error');
+        var FileSelectError = $('.file-select-error');
+
+
+
+        // get store id and product id from block
+        var productId = <?php echo $block->getCurrentProductId(); ?>;
+        var storeId = <?php echo $block->getStoreId(); ?>;
+
+           function validateFields() {
+                // Reset previous error messages
+                FileLabelError.text('');
+                FileUploadError.text('');
+                FileSelectError.text('');
+
+                let isValid = true; // Flag to track overall validity
+
+                // Validate File Label
+                if (FileLabel.val().trim() === '') {
+                    FileLabelError.text('File label is required.');
+                    isValid = false;
+                }
+
+                // Validate File Select
+                if (FileSelect.val().trim() === '') {
+                    FileSelectError.text('File Name is required.');
+                    isValid = false;
+                }
+
+                // Validate File Upload
+                if (FileUpload[0].files.length === 0) {
+                    FileUploadError.text('File is required.');
+                    isValid = false;
+                }
+
+                // Return the final validation result
+                return isValid;
+            }
+
+
+        if (AddButton) {
+            AddButton.on('click', function() {
+                if (productId && validateFields()) {
+                  $('.multifileuploadspinner').css('display', 'block');  
+                    // Create FormData object if validation passes
+                    var formData = new FormData();
+                    formData.append('form_key', window.FORM_KEY);
+                    formData.append('product_id', productId);
+                    formData.append('store_id', storeId);
+                    formData.append('input_value', FileUpload[0].files[0]);
+                    formData.append('input_label', FileLabel.val());
+                    formData.append('file_name', FileSelect.val());
+
+
+                    $.ajax({
+                        url: '<?php echo $block->getUploaderActionUrl(); ?>',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                           var html = ''; 
+                           var data = response.message;
+                          
+                          if(response.status=="success"){
+                             // Reset input fields after successful submission
+                            FileLabel.val(''); // Reset file label input
+                            FileUpload.val(''); // Reset file input
+                            FileSelect.val(''); // Reset file Name
+                            FileUpload[0].value = ''; // Clear the selected file in the file input
+
+                               getData();
+                                html += '<div class="success-message-section message message-success success">';
+                                html += '<p>' + data + '</p>';
+                                html += '</div>';    
+                          }else{
+                             html += '<div class="error-message-section">';
+                             html += '<p>' + data + '</p>';
+                             html += '</div>';    
+                          }
+
+                            // 5 seconds (5000 milliseconds) ke baad spinner ko hide karna
+                            setTimeout(function() {
+                                $('#success-message').html(html);
+                                $('.multifileuploadspinner').css('display', 'none');
+                            }, 1000);
+
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', error);
+                            // Optionally, display error message if needed
+                        }
+                    });
+                } 
+            });
+        }
+        
+        // Get data
+        function getData() {
+            // Get store ID and product ID from block and escape them properly
+            var productId = <?php echo json_encode($block->getCurrentProductId()); ?>;
+            var storeId = <?php echo json_encode($block->getStoreId()); ?>;
+
+            // Create FormData object
+            var formData = new FormData();
+            formData.append('form_key', window.FORM_KEY);
+            formData.append('product_id', productId);
+            formData.append('store_id', storeId);
+
+            // AJAX call
+            $.ajax({
+                url: '<?php echo $block->getDeleteGetActionUrl(); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                // var html = '';
+                if(response.status=="success"){
+                     var data = response.data;
+                // Check if data exists and is not empty
+                // if (Array.isArray(data) && data.length > 0) {
+                //     data.forEach(function(item) {
+                //         html += '<div class="file-section">';
+                //         html += '<h3 class="File-heading">' + item.file_label + '</h3>';
+                //         html += '<h3 class="File-heading">' + item.file_name + '</h3>';
+                //         html += '<div class="File-icon">';
+                //         html += '<a  target="_blank" href="' + '<?php echo $block->getBaseUrl(); ?>' + item.file_value + '">' +  
+                //         '<img class="multipdf-image" src="' + '<?php echo $block->getViewFileUrl('Icecube_Multifileuploader/images/pdf.png'); ?>' + '" alt="' + item.file_label + '" />' +
+                //         '</a>';
+                //         html += '</div>';
+
+                //         html += '<span class="delete-file" data-id="' + item.id + '" data-label="' + item.file_label + '">' +  
+                //         '<img class="delete-image" src="' + '<?php echo $block->getViewFileUrl('Icecube_Multifileuploader/images/delete.png'); ?>' + '" alt="' + item.file_label + '" />' +
+                //         '</span>';
+                //         html += '</div>';
+                //     });
+                // }
+                // Clear and append new data to the container
+                $('#multifilesContainer').html(data);
+                }else{
+                $('#multifilesContainer').html('');
+              }
+               
+            },
+            error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        // Call the function to load data
+        getData();
+
+        $(document).on('click', '.delete-file', function () {
+             $('.multifileuploadspinner').css('display', 'block');
+             var mainContainer = $('#multi-file-uploader-container').offset(); // Get container's position
+             var deleteFilesection = $(this).offset(); // Get current element's position
+             var finalmodeltop = (deleteFilesection.top-mainContainer.top)-100;
+
+             // add dynamic top 
+            $('#multifileConfirmModal').css('top', finalmodeltop);
+
+
+            var fileId = $(this).data('id'); // Get data-id 
+            var fileLabel = $(this).data('label'); // Get data-id data value
+            // Set the custom message
+            $('#modalMessage').text("Are you sure you want to delete " + fileLabel + " file?");
+            // Show the modal
+            $('#multifileConfirmModal').css('display', 'block');
+
+            // Yes button click event
+            $('#modalYes').off('click').on('click', function() {
+                deleteFile(fileId); // Call the function with file ID
+                $('#multifileConfirmModal').css('display', 'none');
+            });
+            // No button click event
+            $('#modalNo').off('click').on('click', function() {
+                $('#multifileConfirmModal').css('display', 'none');
+                $('.multifileuploadspinner').css('display', 'none');
+            });
+        });
+        $(document).on('click', '.close-model', function () {
+            $('#multifileConfirmModal').css('display', 'none');
+            $('.multifileuploadspinner').css('display', 'none');
+        });    
+
+
+        // Define the deleteFile function
+        function deleteFile(fileId) {
+            // Get store ID and product ID from block and escape them properly
+            var productId = <?php echo json_encode($block->getCurrentProductId()); ?>;
+            var storeId = <?php echo json_encode($block->getStoreId()); ?>;
+
+            // Create FormData object
+            var formData = new FormData();
+            formData.append('form_key', window.FORM_KEY);
+            formData.append('product_id', productId);
+            formData.append('store_id', storeId);
+            formData.append('delete_id', fileId);
+
+            // Example AJAX request to delete the file
+            // AJAX call
+            $.ajax({
+                url: '<?php echo $block->getDeleteGetActionUrl(); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+             success: function(response) {
+                    var html = '';
+                    var data = response.data;
+                    if (response.status === "success") {
+                        html += '<div class="delete-success-message-section message message-success success">';
+                        html += '<p>' + data + '</p>';
+                        html += '</div>';
+                    } else {
+                        html += '<div class="error-message-section">';
+                        html += '<p>' + data + '</p>';
+                        html += '</div>';
+                    }
+                   
+
+                    // Insert the message and hide spinner after 1 second
+                    setTimeout(function() {
+                        getData(); // Refresh data after success
+                        $('#success-message').html(html);
+                        $('.multifileuploadspinner').css('display', 'none');
+                    }, 1000);
+                
+            },
+
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+    });
+});
+</script>
