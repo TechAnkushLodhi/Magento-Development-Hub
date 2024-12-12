@@ -1,6 +1,9 @@
 # Icecube_Multifileuploader Extension
 
-The **Icecube_Multifileuploader** extension provides a functionality for uploading multiple files in Magento. This extension allows administrators to configure the file types, size limits, and enables a seamless file upload interface on the product form in the Magento Admin Panel.
+The **Icecube_Multifileuploader** extension provides functionality for uploading multiple files in Magento. This extension allows administrators to configure the file types, size limits, and enables a seamless file upload interface on the product form in the Magento Admin Panel.
+
+If you want to upload multiple files for each product, this extension will be very helpful for you. Through this, you can upload multiple files and display them on the product page.
+
 
 ## Features
 
@@ -50,6 +53,11 @@ The files will be saved in the following directory structure:
 - Product-specific files will be saved under: `pub/media/multifileuploader/product_id/SDS_File` and `pub/media/multifileuploader/product_id/TDS_File`
 
 ![SSH](Images/MultiuploaderSSH.png)
+
+
+
+## Database Table 
+![SSH](Images/MultiuploaderDatbase.png)
 
 
 
