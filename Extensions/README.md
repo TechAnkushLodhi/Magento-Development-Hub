@@ -39,7 +39,7 @@ The **Icecube_Multifileuploader** extension provides a functionality for uploadi
 
 **Note**: This module will only be visible on the frontend if it is enabled in the system configuration.
 
-![Frontend](images/MultiuploaderFrontend.png)
+![Frontend](Images/MultiuploaderFrontend.png)
 
 
 ## Directory Structure
@@ -49,7 +49,7 @@ The files will be saved in the following directory structure:
 - `pub/media/multifileuploader`
 - Product-specific files will be saved under: `pub/media/multifileuploader/product_id/SDS_File` and `pub/media/multifileuploader/product_id/TDS_File`
 
-![SSH](images/MultiuploaderSSH.png)
+![SSH](Images/MultiuploaderSSH.png)
 
 
 
